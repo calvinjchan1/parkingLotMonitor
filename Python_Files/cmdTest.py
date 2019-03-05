@@ -4,33 +4,38 @@ raw = subprocess.check_output(['C:/users/obion/desktop/srp/dependencies/openalpr
 
 
 def getData(raw):
-    #Change data into a string
+    '''
+    Returns an array of license plates detected by openALPR, each containing an array of openALPR's guesses, each of which is an array of 3 elements:
+    ALL[Plate0[Guess0[str plateNumber, float Confidence, float pattern_match], Guess1], Plate1[Guess0['AFBSD', 90.534, 0]]]
+    '''
+    #Change data into a string from bytes
     #print(raw)
     raw = raw.decode('utf-8')
     print(raw)
     #print(type(raw))
 
+    #Turn string into array
     data = []
+    #Each Plate
     for index, item in enumerate(raw.split(' results\r\n')):
         if index != 0:
-            #Process data into a list
+            #Break up the plate into guesses by "-" symbol
             plateList = item.split("-")
-            #print(plateList)
             plateList.pop(0)
             #print("------------------------------------------------------")
+            plate = []
+            #Each Guess
             for index, item in enumerate(plateList):
+                #Turn each guess into a list containing the plate number, confidence, and pattern_match, in that order
                 strList = item.split("\t")
-                #print(strList)
                 item = ['', '', '']
                 item[0] = strList[0].split(' ')[1]
                 item[1] = float(strList[1].split(" confidence: ")[1])
                 item[2] = float(strList[2].split(" pattern_match: ")[1].split("\r")[0])
-                plateList[index] = item
-            data.append(plateList)
-            #print(plateList)
-            #print('\n')
-    #print(len(data))
-    for i in data:
-        print(i[0])
+                #print(item)
+                plate.append(item)
+            #print(plate)
+            data.append(plate)
+    #print(data)
     return data
 getData(raw)
