@@ -1,0 +1,60 @@
+<!--
+***********************************************************************************************
+Microsoft.NETFramework.Windows7.1SDK.props
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+***********************************************************************************************
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <_IsNativeEnvironment Condition="'$(PROCESSOR_ARCHITECTURE)' == 'AMD64' and '$(Platform)' == 'X64'">true</_IsNativeEnvironment>
+    <_IsNativeEnvironment Condition="'$(PROCESSOR_ARCHITECTURE)' == 'IA64' and '$(Platform)' == 'Itanium'">true</_IsNativeEnvironment>
+  </PropertyGroup>
+
+  <!-- Initial properties for the SDK Build Environment -->
+  <PropertyGroup Condition="'$(WindowsSDKVersionOverride)' == 'v7.1'">
+    <WindowsSdkToolsDir>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.1@InstallationFolder)</WindowsSdkToolsDir>
+    <WindowsSdkNetFx35ToolsDir>$(WindowsSdkToolsDir)bin</WindowsSdkNetFx35ToolsDir>
+    <WindowsSdkNetFx4ToolsDir>$(WindowsSdkToolsDir)bin\NETFX 4.0 Tools</WindowsSdkNetFx4ToolsDir>
+    <WinSDKTrackerPath>$(WindowsSdkNetFx4ToolsDir)</WinSDKTrackerPath>
+    <TargetFrameworkSDKToolsDirectory>$(WindowsSdkNetFx4ToolsDir)</TargetFrameworkSDKToolsDirectory>
+    <ComReferenceExecuteAsTool>true</ComReferenceExecuteAsTool>
+  </PropertyGroup>
+
+  <!-- Properties for builds targeting .NET Frameworks less than version 4 -->
+  <PropertyGroup Condition="'$(WindowsSDKVersionOverride)' == 'v7.1' and '$(TargetingClr2Framework)' == 'true'">
+    <ResGenExecuteAsTool>true</ResGenExecuteAsTool>
+    <ResGenToolArchitecture>ManagedIL</ResGenToolArchitecture>
+    <TargetFrameworkSDKToolsDirectory>$(WindowsSdkNetFx35ToolsDir)</TargetFrameworkSDKToolsDirectory>
+    <ResGenTrackerSdkPath Condition="Exists('$(WinSDKTrackerPath)\x64')">$(WinSDKTrackerPath)\x64</ResGenTrackerSdkPath>
+  </PropertyGroup>
+
+  <!-- Use x64 tracker for 64-bit native builds -->
+  <PropertyGroup Condition="'$(WindowsSDKVersionOverride)' == 'v7.1' and '$(_IsNativeEnvironment)'=='true'">
+    <WinSDKTrackerPath>$(WinSDKTrackerPath)\x64</WinSDKTrackerPath>
+  </PropertyGroup>
+
+  <!-- Set all the individual tool properties -->
+  <PropertyGroup Condition="'$(WindowsSDKVersionOverride)' == 'v7.1'">
+    <MidlTrackerSdkPath>$(WinSDKTrackerPath)</MidlTrackerSdkPath>
+    <ResGenTrackerSdkPath Condition="'$(ResGenTrackerSdkPath)' == ''">$(WinSDKTrackerPath)</ResGenTrackerSdkPath>
+    <CLTrackerSdkPath>$(WinSDKTrackerPath)</CLTrackerSdkPath>
+    <LinkTrackerSdkPath>$(WinSDKTrackerPath)</LinkTrackerSdkPath>
+    <CustomBuildTrackerSdkPath>$(WinSDKTrackerPath)</CustomBuildTrackerSdkPath>
+    <LibTrackerSdkPath>$(WinSDKTrackerPath)</LibTrackerSdkPath>
+    <RCTrackerSdkPath>$(WinSDKTrackerPath)</RCTrackerSdkPath>
+    <ManifestTrackerSdkPath>$(WinSDKTrackerPath)</ManifestTrackerSdkPath>
+    <XDCMakeTrackerSdkPath>$(WinSDKTrackerPath)</XDCMakeTrackerSdkPath>
+    <BSCMakeTrackerSdkPath>$(WinSDKTrackerPath)</BSCMakeTrackerSdkPath>
+    <XSDTrackerSdkPath>$(WinSDKTrackerPath)</XSDTrackerSdkPath>
+    <LCToolPath>$(TargetFrameworkSDKToolsDirectory)</LCToolPath>
+    <AlToolPath>$(TargetFrameworkSDKToolsDirectory)</AlToolPath>
+    <SGenToolPath>$(TargetFrameworkSDKToolsDirectory)</SGenToolPath>
+  </PropertyGroup>
+</Project>
