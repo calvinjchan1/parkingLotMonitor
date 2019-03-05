@@ -45,4 +45,4 @@ def scanPlate(path):
     raw = subprocess.check_output(['../dependencies/openalpr_32/alpr.exe', path, '-p', 'az'])
     return getData(raw)
 
-print(scanPlate("C:/users/obion/desktop/srp/samples/test4.jpg"))
+#print(scanPlate("C:/users/obion/desktop/srp/samples/test4.jpg"))
