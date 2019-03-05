@@ -1,6 +1,6 @@
 import subprocess
 #Get raw data from alpr.exe
-raw = subprocess.check_output(['C:/users/obion/desktop/srp/dependencies/openalpr_32/alpr.exe', 'C:/users/obion/desktop/srp/samples/test4.jpg', '-p', 'az'])
+#raw = subprocess.check_output(['C:/users/obion/desktop/srp/dependencies/openalpr_32/alpr.exe', 'C:/users/obion/desktop/srp/samples/test4.jpg', '-p', 'az'])
 
 
 def getData(raw):
@@ -38,4 +38,11 @@ def getData(raw):
             data.append(plate)
     #print(data)
     return data
-getData(raw)
+def scanPlate(path):
+    '''
+    Returns license plate scans from given path
+    '''
+    raw = subprocess.check_output(['../dependencies/openalpr_32/alpr.exe', path, '-p', 'az'])
+    return getData(raw)
+
+print(scanPlate("C:/users/obion/desktop/srp/samples/test4.jpg"))
