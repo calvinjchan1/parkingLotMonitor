@@ -1,4 +1,3 @@
 #Ignore all the Cloned OpenALPRs
 OpenALPR
-*.png
-*.jpg
+Python_Files/runtime
