@@ -11,7 +11,7 @@ def getData(raw):
     #Change data into a string from bytes
     #print(raw)
     raw = raw.decode('utf-8')
-    print(raw)
+    #print(raw)
     if raw == "No license plates found.\r\n":
         return []
     #print(type(raw))
