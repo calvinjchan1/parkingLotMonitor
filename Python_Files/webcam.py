@@ -14,10 +14,11 @@ except:
 camera = cv2.VideoCapture(0)
 time.sleep(1); #Let windows get camera ready
 
-def takePicture():
+def takePicture(confidence):
     '''
     Takes a picture, scans for license plates, and
-    returns a tuple of (data, time taken)
+    returns a tuple of (data, time taken), getting rid of all guesses below
+    the confidence threshold given
     '''
     start = time.time()
     success, image = camera.read() #Take a screenshot
@@ -29,14 +30,24 @@ def takePicture():
     data = cmdTest.scanPlate("runtime/test.jpg")
     timeTaken = time.time()-start
     print("Time Taken: " + str(timeTaken))
-    return (data, timeTaken)
+
+    #Remove low confidence guesses
+    tempData = []
+    for plate in data:
+        tempPlate = []
+        for guess in plate:
+            if guess[1] >= confidence:
+                tempPlate.append(guess)
+        if(len(tempPlate) != 0):
+            tempData.append(tempPlate)
+    return (tempData, timeTaken)
 
 #Print out average time it takes to take each picture
 avgTime = 0
 total = 0
 count = 0
 while True:
-    data, timeTaken = takePicture()
+    data, timeTaken = takePicture(85)
     print(data)
     total += timeTaken
     count +=1
