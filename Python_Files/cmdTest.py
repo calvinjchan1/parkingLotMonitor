@@ -12,6 +12,8 @@ def getData(raw):
     #print(raw)
     raw = raw.decode('utf-8')
     print(raw)
+    if raw == "No license plates found.\r\n":
+        return []
     #print(type(raw))
 
     #Turn string into array
