@@ -63,7 +63,3 @@ def createParent(parent, value):
     else:
         return False
 
-createParent("Abe", False)
-createParent("Kai", True)
-setParent("Kai", False)
-
