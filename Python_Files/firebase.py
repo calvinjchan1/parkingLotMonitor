@@ -52,5 +52,18 @@ def setParent(parent, value):
     else:
         return False
 
-setParent("Patrick", True)
-print(getParent("Patrick"))
+def createParent(parent, value):
+    '''
+    Creates the given parent with given value. Returns true if successful,
+    false if the parent already exists
+    '''
+    if getParent(parent) == None: #Make sure parent doesn't exist
+        db.child("parents").update({parent: value}, user['idToken'])
+        return True
+    else:
+        return False
+
+createParent("Abe", False)
+createParent("Kai", True)
+setParent("Kai", False)
+
