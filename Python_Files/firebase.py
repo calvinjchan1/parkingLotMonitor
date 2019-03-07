@@ -52,7 +52,7 @@ def setParent(parent, value):
     else:
         return False
 
-def createParent(parent, value):
+def createParent(parent, value=False):
     '''
     Creates the given parent with given value. Returns true if successful,
     false if the parent already exists
