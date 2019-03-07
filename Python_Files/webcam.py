@@ -42,16 +42,6 @@ def takePicture(confidence):
             tempData.append(tempPlate)
     return (tempData, timeTaken)
 
-def toList(data):
-    '''
-    Returns a list of all license plate strings from the given data
-    '''
-    output = []
-    for plate in data:
-        for guess in plate:
-            output.append(guess[0])
-    return output
-
 #Print out average time it takes to take each picture
 avgTime = 0
 total = 0

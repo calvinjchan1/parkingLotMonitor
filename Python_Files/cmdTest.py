@@ -47,4 +47,14 @@ def scanPlate(path):
     raw = subprocess.check_output(['../dependencies/openalpr_32/alpr.exe', path, '-p', 'az'])
     return getData(raw)
 
+def toList(data):
+    '''
+    Returns a list of all license plate strings from the given data
+    '''
+    output = []
+    for plate in data:
+        for guess in plate:
+            output.append(guess[0])
+    return output
+
 #print(scanPlate("C:/users/obion/desktop/srp/samples/test4.jpg"))
