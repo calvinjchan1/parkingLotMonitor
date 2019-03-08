@@ -1,3 +1,4 @@
 #Ignore all the Cloned OpenALPRs
 OpenALPR
 Python_Files/runtime
+secrets
