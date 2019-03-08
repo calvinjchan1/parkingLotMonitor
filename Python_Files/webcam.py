@@ -10,7 +10,7 @@ try:
 except:
     print("Failed to create runtime directory")
 
-#Take a picture and save it to the runtime directoy
+
 camera = cv2.VideoCapture(0)
 time.sleep(1); #Let windows get camera ready
 
@@ -42,7 +42,7 @@ def takePicture(confidence):
             tempData.append(tempPlate)
     return (tempData, timeTaken)
 
-#Print out average time it takes to take each picture
+'''#Print out average time it takes to take each picture
 avgTime = 0
 total = 0
 count = 0
@@ -52,4 +52,4 @@ while True:
     total += timeTaken
     count +=1
     avgTime = total/count
-    print("Average time: " + str(avgTime))
+    print("Average time: " + str(avgTime))'''
