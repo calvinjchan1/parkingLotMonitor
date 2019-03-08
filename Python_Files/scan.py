@@ -1,5 +1,5 @@
 import sys
-import webcam
+import webcam, cmdTest, listReader, firebase
 
 #Get what mode we are running the program in
 #a True mode is entrance, false is exit
@@ -12,3 +12,26 @@ elif mode == "EXIT":
 else:
     print("Invalid mode, aborting.")
     sys.exit()
+
+def main():
+    while True:
+        #Get data
+        data, timeTaken = webcam.takePicture(85)
+        plates = cmdTest.toList(data)
+        #print(plates)
+        for plate in plates:
+            #Make sure parent exists
+            print(plate)
+            parent = listReader.getParent(plate)
+            if(parent != False):
+                print("Match!")
+                #Entrace
+                if(mode):
+                    firebase.setParent(parent, True)
+                #Exit
+                else:
+                    firebase.setParent(parent, False)
+main()
+                
+        
+        
