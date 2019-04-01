@@ -17,6 +17,7 @@ def main():
     while True:
         #Get data
         data, timeTaken = webcam.takePicture(85)
+        print("NEW PLATE ------- " + str(timeTaken))
         plates = cmdTest.toList(data)
         #print(plates)
         for plate in plates:
