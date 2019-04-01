@@ -18,8 +18,8 @@ def getParentList():
     '''
     Returns a list of all parents (no license plates)
     '''
-    parentList = []
+    parentList = set()
     for plate in data:
-        parentList.append(str(data[plate]))
+        parentList.add(str(data[plate]))
     return parentList
 
