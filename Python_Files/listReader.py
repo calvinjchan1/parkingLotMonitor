@@ -13,3 +13,13 @@ def getParent(plate):
         return data[plate]
     except KeyError:
         return False
+
+def getParentList():
+    '''
+    Returns a list of all parents (no license plates)
+    '''
+    parentList = []
+    for plate in data:
+        parentList.append(str(data[plate]))
+    return parentList
+

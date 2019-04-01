@@ -63,3 +63,13 @@ def createParent(parent, value=False):
     else:
         return False
 
+def deleteAll():
+    '''
+    Deletes all parents
+    '''
+    data = db.child("parents").get(user['idToken'])
+    for child in data.val():
+        db.child("parents").child(child).remove(user['idToken'])
+
+
+
