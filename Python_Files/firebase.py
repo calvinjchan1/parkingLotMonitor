@@ -68,8 +68,9 @@ def deleteAll():
     Deletes all parents
     '''
     data = db.child("parents").get(user['idToken'])
-    for child in data.val():
-        db.child("parents").child(child).remove(user['idToken'])
+    if not (data.val() == None):
+        for child in data.val():
+            db.child("parents").child(child).remove(user['idToken'])
 
 
 
