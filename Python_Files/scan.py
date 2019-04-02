@@ -21,9 +21,10 @@ def main():
         plates = cmdTest.toList(data)
         #print(plates)
         for plate in plates:
-            #Make sure parent exists
             print(plate)
-            parent = listReader.getParent(plate)
+            if firebase.setLot(plate, mode): print("MATCH!")
+            '''parent = listReader.getParent(plate)
+            #Make sure parent exists
             if(parent != False):
                 print("Match!")
                 #Entrace
@@ -31,7 +32,7 @@ def main():
                     firebase.setParent(parent, True)
                 #Exit
                 else:
-                    firebase.setParent(parent, False)
+                    firebase.setParent(parent, False)'''
 main()
                 
         

@@ -2,6 +2,11 @@ import json
 
 with open('../secrets/test.json') as f:
     data = json.load(f)
+with open('../secrets/login.json') as f:
+    login = json.load(f)
+
+email = login['email']
+password = login['password']
 
 def getParent(plate):
     '''

@@ -1,10 +1,13 @@
-import pyrebase, getpass
+import pyrebase, getpass, listReader
+import pprint
 
 #https://github.com/thisbejim/Pyrebase for documentaion on pyrebase
 
 #Get login info
-email = input("Enter your email address: ")
-password = getpass.getpass("Enter your password: ")
+email = listReader.email #input("Enter your email address: ")
+password = listReader.password#getpass.getpass("Enter your password: ")
+
+plateDict = {}
 
 #Setup pyrebase
 config = {
@@ -19,6 +22,7 @@ user = auth.sign_in_with_email_and_password(email, password)
 print(user)
 db = firebase.database()
 
+
 #Example Code
 '''
 #Send Data
@@ -28,6 +32,7 @@ db.child("parents").update({"test":True},user['idToken'])
 parents = db.child("parents").get(user['idToken'])
 print(parents.val())
 '''
+
 
 def getParent(parent):
     '''
@@ -72,5 +77,40 @@ def deleteAll():
         for child in data.val():
             db.child("parents").child(child).remove(user['idToken'])
 
+def refreshPlateDict():
+    global plateDict
+    data = db.child("users").get(user['idToken']) #Ordered Dict
+    data = data.val()
+    plateDict = {}
+    for key in data:
+        thisUser = data[key]
+        #Covert plate data into usable array
+        plates = "".join(thisUser['plates'].split())#Remove all whitespace
+        plates = plates.replace("-", "")#Remove dashes
+        plates = plates.upper()#Make sure we are in uppercase
+        plates = plates.split(',')#Seperate by comma
+        for plate in plates:
+            if plate in plateDict:
+                plateDict[plate].append(key)
+            else:
+                plateDict[plate] = [key]
 
+def setLot(plate, mode):
+    '''
+    Try to update the firebase via the given plate
+    plate is the license plate as a string to try and match
+    mode is a boolean of the mode the program is being run in
+        True is entrance mode
+        False is exit mode
+    Returns true if it was able to update with the given plate,
+    false otherwise
+    '''
+    if plate in plateDict:
+        for person in plateDict[plate]:
+            db.child("users").child(person).update({"inParkingLot":mode}, user['idToken'])
+        return True
+    else:
+        return False
+
+refreshPlateDict()
 
