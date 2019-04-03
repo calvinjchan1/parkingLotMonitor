@@ -1,0 +1,11 @@
+What you need:
+	One computer with a webcam for each entrance and exit to the parking lot
+
+What to do:
+	Setup a computer at each entrance/exit to the parking lot, and point
+	the cameras so they can see license plates of incoming/outgoing cars.
+	Then, run scan.py on each computer, and enter the appropriate mode (entrance/exit)
+	for each, depending on if the camera is looking at incoming or outgoing cars.
+	
+	Then, people using the parkingLotMonitor app should be able to get notifications
+	when cars they track enter the parking lot. 
