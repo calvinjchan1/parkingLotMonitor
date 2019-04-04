@@ -1,3 +1,4 @@
 This requires:
+	Python 3
 	OpenCV to be installed for python
 	Pyrebase to be installed for python

@@ -9,3 +9,64 @@ What to do:
 	
 	Then, people using the parkingLotMonitor app should be able to get notifications
 	when cars they track enter the parking lot. 
+	
+	Additionally, you should make a folder named secrets with a json file named "login.json"
+	inside the folder with the email and password for your firebase login. 
+	Example:
+	SRP/secrets/login.json:
+	
+	{
+	"email":"YOUR_EMAIL@example.com",
+	"password":"YOUR_SUPER_SECRET_PASSWORD"
+	}
+	
+How the system works (summary):
+	scan.py looks for license plates and tries to match them
+	to licesnse plates in a firebase database. If it finds a match,
+	depending if scan.py is in entry or exit mode it will mark all users
+	with that license plate as either in or out of the parking lot, repsecitvley.
+	Users running the android app will be notified when they are switched from out of the
+	lot to in the lot. 
+	
+Files:
+	android - where the android studio project for the phone app is stored
+	Blog Stuff - Pictures for the senior blog
+	Dependencies - non-python depedencies that other things need to works
+	secrets
+	Python_Files - where all the python files for the project be at. 
+	Things You Need.txt - A list of dependencies you should install to get this to work
+	
+A note on firebase:
+	The firebase piece is important to this project, but you probably won't have the key.
+	You can either:
+	1. Make your own firebase project and link this to that:
+		You need to change things in Python_Files/firebase.py, secificially the config to fit your firebase project.
+		You need to link the android project to your own firebase project.
+		The firebase realtime database should have a branch from the top level named "users". You may have to make an account with the app before using scan.py.
+		Example:
+			Firebase Project
+				Users
+					abc123
+						"inParkingLot": false
+						"plates":"a123T, 7HFHW, HHDYD"
+	2. Ask me for access to the firebase project - email me at calvinjchan1@gmail.com
+		
+Things that you can improve upon:
+	Make the app support IOS - Look at Google Flutter 
+	Get the openALPR library to work instead of running the exe
+	Make recognition of plates more accurate
+	Collect data for the amount of time cars spend in parking lot, which exits are used the most, ect.
+	Make app look better
+	Better user interface for app
+	Publish app on playstore
+	Make user --> license plate data double sided. Ex. you should be able to look up all the license plate a user is linked to AND
+		all the users a given license plate is linked to. Right now you can only go from user to plates so the computers runnning scan.py
+		must download the data for all users and sort through them to link license plates to names. This might not be feasable for large lists
+		of people. 
+		One way of doing this could be to keep a seperate directory in firebase and update it whenever you update users. 
+	Firebase will timeout and cut off connection after an hour if you don't refresh it. Currently it is not being refreshed. refresh it. 
+	
+	
+
+		
+	

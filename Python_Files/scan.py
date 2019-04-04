@@ -1,5 +1,5 @@
 import sys, time
-import webcam, cmdTest, listReader, firebase
+import webcam, cmdTest, firebase
 
 oldTime = time.time()
 refreshCounter = 0
@@ -46,16 +46,6 @@ def main():
         for plate in plates:
             print(plate)
             if firebase.setLot(plate, mode): print("MATCH!")
-            '''parent = listReader.getParent(plate)
-            #Make sure parent exists
-            if(parent != False):
-                print("Match!")
-                #Entrace
-                if(mode):
-                    firebase.setParent(parent, True)
-                #Exit
-                else:
-                    firebase.setParent(parent, False)'''
         
 main()
                 
